@@ -4,3 +4,6 @@
 *.jar
 *.war
 *.ear
+
+# Swap Files by vim
+.*.swp
