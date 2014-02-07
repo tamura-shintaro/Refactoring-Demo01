@@ -1,12 +1,12 @@
 public class Movie {
-   public static final int CHILDENS = 2;
+   public static final int CHILDRENS = 2;
    public static final int NEW_RELEASE = 1;
    public static final int REGURAR = 0;
 
    private string _title;
    private int _priceCode;
 
-   public Movie(String titl, int priceCode) {
+   public Movie(String title, int priceCode) {
       _title = title;
       _priceCode = priceCode;
    }
