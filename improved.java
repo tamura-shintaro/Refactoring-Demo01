@@ -60,6 +60,14 @@ class Rental {
       }
       return result;
    }
+
+   public int getFrequentRenterPoints() {
+      if ((getMovie().getPriceCode() == Movie.NEW_RELEASE) &&
+	  (getRentedDays() > 1))
+         return 2;
+      else
+         return 1;
+   }
 }
 
 class Customer {
@@ -86,10 +94,7 @@ class Customer {
       while(rentals.hasMoreElements()) {
 	 Rental each = (Rental) rentals.nextElement();
 
-	 frequentRenterPoints ++;
-
-	 if ((each.getMovie().getPriceCode() == Movie.NEW_RELEASE) &&
-	     (each.getRentedDays() > 1)) frequentRenterPoints ++;
+	 frequentRenterPoints += each.getFrequentRenterPoints();
 
 	 result += "\t" + each.getMovie() + "\t" +
 	           String.valueOf(each.getCharge()) + "\n";
