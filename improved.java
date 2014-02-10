@@ -22,6 +22,33 @@ public class Movie {
    public string getTitle() {
       return _title;
    }
+
+   double getCharge(int daysRented) {
+      double result = 0;
+      switch (getPriceCode()) {
+         case Movie.REGURAR:
+	    result += 2;
+	    if (daysRented > 2)
+	       result += (daysRented - 2) * 1.5;
+	    break;
+	 case Movie.CHILDRENS:
+	    result += 1.5;
+	    if (daysRented > 3)
+	       result += (daysRented - 3) * 1.5;
+	    break;
+	 case Movie.NEW_RELEASE:
+	    result += daysRented * 3;
+	    break;
+      }
+      return result;
+   }
+
+   int getFrequentRenterPoints() {
+      if (getPriceCode() == Movie.NEW_RELEASE && daysRented > 1)
+         return 2;
+      else
+         return 1;
+   }
 }
 
 class Rental {
@@ -41,32 +68,12 @@ class Rental {
       return _movie;
    }
 
-   public double getCharge() {
-      double result = 0;
-      switch (getMovie().getPriceCode()) {
-         case Movie.REGURAR:
-	    result += 2;
-	    if (getDaysRented() > 2)
-	       result += (getDaysRented() - 2) * 1.5;
-	    break;
-	 case Movie.CHILDRENS:
-	    result += 1.5;
-	    if (getDaysRented() > 3)
-	       result += (getDaysRented() - 3) * 1.5;
-	    break;
-	 case Movie.NEW_RELEASE:
-	    result += getDaysRented() * 3;
-	    break;
-      }
-      return result;
+   double getCharge() {
+      return _movie.getCharge(_daysRented);
    }
 
-   public int getFrequentRenterPoints() {
-      if ((getMovie().getPriceCode() == Movie.NEW_RELEASE) &&
-	  (getRentedDays() > 1))
-         return 2;
-      else
-         return 1;
+   int getFrequentRenterPoints() {
+      return _movie.getFrequentRenterPoints(_daysRented);
    }
 }
 
