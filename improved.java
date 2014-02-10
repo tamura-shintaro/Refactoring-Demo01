@@ -42,7 +42,7 @@ class Rental {
    }
 
    public double getCharge() {
-      double result;
+      double result = 0;
       switch (getMovie().getPriceCode()) {
          case Movie.REGURAR:
 	    result += 2;
@@ -92,7 +92,7 @@ class Customer {
       while(rentals.hasMoreElements()) {
 	 Rental each = (Rental) rentals.nextElement();
 
-	 result += "\t" + each.getMovie() + "\t" +
+	 result += "\t" + each.getMovie().getTitle() + "\t" +
 	           String.valueOf(each.getCharge()) + "\n";
       }
       result += "Amount owed is " + String.valueOf(getTotalCharge()) + "\n";
@@ -107,17 +107,13 @@ class Customer {
       while(rentals.hasMoreElements()) {
 	 Rental each = (Rental) rentals.nextElement();
 
-	 result += each.getMovie() + ": " +
+	 result += each.getMovie().getTitle() + ": " +
 	           String.valueOf(each.getCharge()) + "<BR>\n";
       }
       result += "<P>You owe <EM>" + String.valueOf(getTotalCharge()) + "</EM><P>\n";
       result += "You earned <EM>" + String.valueOf(getTotalFrequentRenterPoints()) +
                 "</EM> points.";
       return result;
-   }
-
-   public double amountFor(Rental aRental) {
-      return aRental.getCharge();
    }
 
    private double getTotalCharge() {
