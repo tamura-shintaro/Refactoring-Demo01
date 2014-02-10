@@ -101,6 +101,21 @@ class Customer {
       return result;
    }
 
+   public String htmlStatement() {
+      Enumeration rentals = _rentals.elements();
+      String result = "<H1>Rentals for <EM>" + getName() + "</EM></H1><P>\n";
+      while(rentals.hasMoreElements()) {
+	 Rental each = (Rental) rentals.nextElement();
+
+	 result += each.getMovie() + ": " +
+	           String.valueOf(each.getCharge()) + "<BR>\n";
+      }
+      result += "<P>You owe <EM>" + String.valueOf(getTotalCharge()) + "</EM><P>\n";
+      result += "You earned <EM>" + String.valueOf(getTotalFrequentRenterPoints()) +
+                "</EM> points.";
+      return result;
+   }
+
    public double amountFor(Rental aRental) {
       return aRental.getCharge();
    }
