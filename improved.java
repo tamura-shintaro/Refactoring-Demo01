@@ -4,7 +4,7 @@ public class Movie {
    public static final int REGURAR = 0;
 
    private string _title;
-   private int _priceCode;
+   private Price _price;
 
    public Movie(String title, int priceCode) {
       _title = title;
@@ -12,16 +12,43 @@ public class Movie {
    }
 
    public int getPriceCode() {
-      return _priceCode;
+      return _price.getPriceCode();
    }
 
    public void setPriceCode(int arg) {
-      _priceCode = arg;
+      swich(arg) {
+         case REGURAR:
+	    _price = new RegularPrice();
+	    break;
+	 case NEW_RELEASE:
+	    _price = new NewReleasePrice();
+	    break;
+	 case CHILDRENS:
+	    _price = new ChildrensPrice();
+	    break;
+	 default:
+	    throw new IllegalArgumentException("Illegal Code");
+      }
    }
 
    public string getTitle() {
       return _title;
    }
+
+   double getCharge(int daysRented) {
+      return _price.getCharge(daysRented);
+   }
+
+   int getFrequentRenterPoints() {
+      if (getPriceCode() == Movie.NEW_RELEASE && daysRented > 1)
+         return 2;
+      else
+         return 1;
+   }
+}
+
+abstract class Price {
+   abstract int getPriceCode();
 
    double getCharge(int daysRented) {
       double result = 0;
@@ -42,17 +69,6 @@ public class Movie {
       }
       return result;
    }
-
-   int getFrequentRenterPoints() {
-      if (getPriceCode() == Movie.NEW_RELEASE && daysRented > 1)
-         return 2;
-      else
-         return 1;
-   }
-}
-
-abstract class Price {
-   abstract int getPriceCode();
 }
 class ChildrensPrice extends Price {
    int getPriceCode() {
